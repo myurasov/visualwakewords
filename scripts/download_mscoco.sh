@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Copyright 2020 Maxim Bonnaerens. All Rights Reserved.
 #
 # Copyright 2019 The TensorFlow Authors. All Rights Reserved.
@@ -22,6 +24,7 @@
 # usage:
 #  bash scripts/download_mscoco.sh path-to-COCO-dataset
 #
+
 set -e
 # set -x
 
@@ -54,7 +57,7 @@ function download_and_unzip() {
   fi
   echo "Unzipping ${FILENAME}"
   ${UNZIP} "${FILENAME}"
-  # rm "${FILENAME}"
+  rm "${FILENAME}"
 }
 
 cd "${OUTPUT_DIR}"
@@ -71,9 +74,9 @@ download_and_unzip ${BASE_IMAGE_URL} "${VAL_IMAGE_FILE}"
 VAL_IMAGE_DIR="val${YEAR}"
 
 COMMON_DIR="all$YEAR"
-mkdir -p "${COMMON_DIR}"
-for i in ${TRAIN_IMAGE_DIR}/*; do ln -s ${i} ${COMMON_DIR}/; done
-for i in ${VAL_IMAGE_DIR}/*; do ln -s ${i} ${COMMON_DIR}/; done
+mkdir -pv "${COMMON_DIR}"
+for i in ${TRAIN_IMAGE_DIR}/*; do ln -s "../${i}" ${COMMON_DIR}/; done
+for i in ${VAL_IMAGE_DIR}/*; do ln -s "../${i}" ${COMMON_DIR}/; done
 
 # Download the annotations.
 BASE_INSTANCES_URL="http://images.cocodataset.org/annotations"
